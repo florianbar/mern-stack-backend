@@ -1,0 +1,9 @@
+{
+  "env": {
+    "DB_USER": "florianbar",
+    "DB_PASSWORD": "wzOnPiYGDaNgVzdT",
+    "DB_NAME": "mern-stack",
+    "GOOGLE_API_KEY": "AIzaSyDgLmMpKCzveJf1_yuA0fUzzhy0WRChvZA",
+    "JWT_KEY": "supersecret_dont_share"
+  }
+}
