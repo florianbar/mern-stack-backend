@@ -51,7 +51,8 @@ app.use((error, req, res, next) => {
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.pvm3scx.mongodb.net/${process.env.DB_NAME}`
+    process.env.MONGODB_URI ||
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.pvm3scx.mongodb.net/${process.env.DB_NAME}`
   )
   .then(() => {
     app.listen(process.env.PORT || 5000);
