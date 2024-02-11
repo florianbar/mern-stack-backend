@@ -1,10 +1,9 @@
 const fs = require("fs");
 const path = require("path");
-//dsadas
 
 const express = require("express");
 const bodyParser = require("body-parser");
-const mongoose = require("mongoose");
+// const mongoose = require("mongoose");
 
 const placesRoutes = require("./routes/places-routes");
 const usersRoutes = require("./routes/users-routes");
@@ -27,8 +26,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use("/api/places", placesRoutes);
-app.use("/api/users", usersRoutes);
+app.get("/", (req, res) => {
+  res.send("Express on Vercel" + process.env.PORT + process.env.MONGODB_URI);
+});
+// app.use("/api/places", placesRoutes);
+// app.use("/api/users", usersRoutes);
 
 app.use((req, res, next) => {
   const error = new HttpError("Could not find this route.", 404);
@@ -49,16 +51,20 @@ app.use((error, req, res, next) => {
   res.json({ message: error.message || "An unknown error occurred!" });
 });
 
-mongoose
-  .connect(
-    process.env.MONGODB_URI ||
-      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.pvm3scx.mongodb.net/${process.env.DB_NAME}`
-  )
-  .then(() => {
-    app.listen(process.env.PORT || 5000);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+// FLO TODO: Uncomment this code and remove the above code to connect to the database
+// mongoose
+//   .connect(
+//     process.env.MONGODB_URI ||
+//       `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.pvm3scx.mongodb.net/${process.env.DB_NAME}`
+//   )
+//   .then(() => {
+//     app.listen(process.env.PORT || 5000);
+//   })
+//   .catch((error) => {
+//     console.log(error);
+//   });
 
 module.exports = app;
